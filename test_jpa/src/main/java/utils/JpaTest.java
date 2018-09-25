@@ -1,9 +1,12 @@
 package utils;
 
-import entities.Dog;
-import entities.Master;
+import dao.CityDAO;
+import dao.PersonDAO;
+import entities.City;
+import entities.Person;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class JpaTest {
 
@@ -11,24 +14,24 @@ public class JpaTest {
      * @param args
      */
     public static void main(String[] args) {
-        EntityManagerHelper.beginTransaction();
-        Dog d = new Dog();
-        d.setName("Poppy");
+        City c1 = new City();
+        c1.setName("Angers");
 
+        City c2 = new City();
+        c2.setName("Nantes");
 
+        CityDAO cityDAO = new CityDAO();
 
-        Master m = new Master();
-        m.setName("Gautier");
-        ArrayList<Dog> dogs = new ArrayList<Dog>();
-        dogs.add(d);
+        // persist entities
+        cityDAO.save(c1);
+        cityDAO.save(c2);
 
-        m.setDogs(dogs);
+        Person p = new Person();
+        p.setName("Gautier");
+        p.setCities(Arrays.asList(c1, c2));
 
-        EntityManagerHelper.getEntityManager().persist(d);
-
-        EntityManagerHelper.getEntityManager().persist(m);
-
-        EntityManagerHelper.commit();
+        PersonDAO personDAO = new PersonDAO();
+        personDAO.save(p);
 
         EntityManagerHelper.closeEntityManager();
         EntityManagerHelper.closeEntityManagerFactory();
