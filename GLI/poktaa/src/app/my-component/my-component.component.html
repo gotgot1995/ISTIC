@@ -1,0 +1,8 @@
+<div style="display: inline-block">
+    <input [(ngModel)]="id"><br><br>
+
+    <select name="selected_pokemon" id="selected_pokemon" [(ngModel)]="selected_pokemon">
+      <option *ngFor="let pokemon of pokemons" [ngValue]="pokemon">{{pokemon.name}}</option>
+    </select><br><br>
+    Selected value: {{selected_pokemon.name}}
+</div>
